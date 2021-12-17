@@ -21,6 +21,11 @@ STATIC_LIBS = $(shell find target -name "libzcashlc.a")
 # create folder structure: ios-arm64, ios-arm64_x86_64-simulator, macos-arm64_x86_64
 
 install:
+	rustup toolchain add stable
+	rustup +stable target add aarch64-apple-ios x86_64-apple-ios x86_64-apple-darwin aarch64-apple-darwin
+	rustup toolchain add nightly-2021-09-24
+	rustup +nightly-2021-09-24 target add aarch64-apple-ios-sim
+
 	rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim x86_64-apple-darwin aarch64-apple-darwin 
 	RUSTUP_TOOLCHAIN=nightly-x86_64-apple-darwin rustup target add aarch64-apple-ios-sim
 .PHONY: install
@@ -90,7 +95,7 @@ nightly-%:
 	sh -c "RUSTUP_TOOLCHAIN=nightly-2021-09-24 cargo build --manifest-path Cargo.toml --target $*"
 
 stable-%: # target/%/debug/libzcashlc.a:
-	cargo build --manifest-path Cargo.toml --target $*
+	sh -c "RUSTUP_TOOLCHAIN=stable cargo build --manifest-path Cargo.toml --target $*"
 
 
 # products/static-libraries/ios-simulator/libzcashlc.a: $(RUST_SRCS)
