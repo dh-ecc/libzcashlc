@@ -20,11 +20,15 @@ STATIC_LIBS = $(shell find target -name "libzcashlc.a")
 # make them frameworks: (can't remember why)
 # create folder structure: ios-arm64, ios-arm64_x86_64-simulator, macos-arm64_x86_64
 
+install:
+	rustup target add aarch64-apple-ios
+	RUSTUP_TOOLCHAIN=nightly-x86_64-apple-darwin rustup target add aarch64-apple-ios-sim
+.PHONY: install
 clean:
 	rm -rf products
 	rm -rf targets
 
-xcframework: products/libzcashlc.xcframework
+xcframework: install products/libzcashlc.xcframework
 .PHONY: xcframework
 
 products/libzcashlc.xcframework: $(PLATFORMS)
