@@ -72,7 +72,6 @@ products/ios-device/universal/libzcashlc.a: $(IOS_DEVICE_ARCHS)
 
 $(MACOS_ARCHS): %: stable-%
 	mkdir -p products/macos/static-libraries/$*
-	# cp $< products/macos/static-libraries/$*
 	cp target/$*/debug/libzcashlc.a products/macos/static-libraries/$*
 .PHONY: $(MACOS_ARCHS)
 
@@ -92,52 +91,7 @@ $(IOS_SIM_ARCHS_NIGHTLY): %: nightly-%
 .PHONY: $(IOS_SIM_ARCHS_NIGHTLY)
 
 nightly-%:
-	sh -c "RUSTUP_TOOLCHAIN=nightly-2021-09-24 cargo build --manifest-path Cargo.toml --target $*"
+	sh -c "RUSTUP_TOOLCHAIN=nightly-2021-09-24 cargo build --manifest-path Cargo.toml --target $* --release"
 
 stable-%: # target/%/debug/libzcashlc.a:
-	sh -c "RUSTUP_TOOLCHAIN=stable cargo build --manifest-path Cargo.toml --target $*"
-
-
-# products/static-libraries/ios-simulator/libzcashlc.a: $(RUST_SRCS)
-# 	mkdir -p $(@D)
-# 	echo ${IOS_SIM_ARCHS_STABLE} \
-# 	| tr ' ' '\0' \
-# 	| xargs -0 -I% \
-# 	cargo build --manifest-path Cargo.toml --target %
-# 	echo ${IOS_SIM_ARCHS_NIGHTLY} \
-# 	| tr ' ' '\n' \
-# 	| xargs -n1 -I% \
-# 	sh -c "RUSTUP_TOOLCHAIN=nightly-2021-09-24 cargo build --manifest-path Cargo.toml --target %"
-# 	echo "${IOS_SIM_ARCHS}" \
-# 	| tr ' ' '\n' \
-# 	| xargs -I% \
-# 	echo "target/%/debug/libzcashlc.a" \
-# 	| tr '\n' ' ' \
-# 	| { read libraries; sh -c "lipo -create $$libraries -output $@" }
-
-# products/static-libraries/ios-device/libzcashlc.a: $(RUST_SRCS)
-# 	mkdir -p $(@D)
-# 	echo ${IOS_DEVICE_ARCHS} \
-# 	| tr ' ' '\0' \
-# 	| xargs -0 -I% \
-# 	cargo build --manifest-path Cargo.toml --target %
-# 	echo "${IOS_DEVICE_ARCHS}" \
-# 	| tr ' ' '\n' \
-# 	| xargs -I% \
-# 	echo "target/%/debug/libzcashlc.a" \
-# 	| tr '\n' ' ' \
-# 	| { read libraries; sh -c "lipo -create $$libraries -output $@" }
-
-# products/static-libraries/macos/libzcashlc.a: $(RUST_SRCS)
-# 	mkdir -p $(@D)
-# 	echo ${MACOS_ARCHS} \
-# 	| tr ' ' '\0' \
-# 	| xargs -0 -I% \
-# 	cargo build --manifest-path Cargo.toml --target %
-# 	echo "${MACOS_ARCHS}" \
-# 	| tr ' ' '\n' \
-# 	| xargs -I% \
-# 	echo "target/%/debug/libzcashlc.a" \
-# 	| tr '\n' ' ' \
-# 	| { read libraries; sh -c "lipo -create $$libraries -output $@" }
-
+	sh -c "RUSTUP_TOOLCHAIN=stable cargo build --manifest-path Cargo.toml --target $* --release"
