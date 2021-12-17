@@ -10,7 +10,7 @@ IOS_DEVICE_ARCHS = aarch64-apple-ios
 IOS_SIM_ARCHS_STABLE = x86_64-apple-ios
 IOS_SIM_ARCHS_NIGHTLY = aarch64-apple-ios-sim
 MACOS_ARCHS = x86_64-apple-darwin aarch64-apple-darwin
-IOS_SIM_ARCHS = $(IOS_SIM_ARCHS_STABLE) # $(IOS_SIM_ARCHS_NIGHTLY)
+IOS_SIM_ARCHS = $(IOS_SIM_ARCHS_STABLE) $(IOS_SIM_ARCHS_NIGHTLY)
 
 RUST_SRCS = $(shell find rust -name "*.rs") Cargo.toml
 STATIC_LIBS = $(shell find target -name "libzcashlc.a")
