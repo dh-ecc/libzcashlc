@@ -72,26 +72,26 @@ products/ios-device/universal/libzcashlc.a: $(IOS_DEVICE_ARCHS)
 
 $(MACOS_ARCHS): %: stable-%
 	mkdir -p products/macos/static-libraries/$*
-	cp target/$*/debug/libzcashlc.a products/macos/static-libraries/$*
+	cp target/$*/release/libzcashlc.a products/macos/static-libraries/$*
 .PHONY: $(MACOS_ARCHS)
 
 $(IOS_DEVICE_ARCHS): %: stable-%
 	mkdir -p products/ios-device/static-libraries/$*
-	cp target/$*/debug/libzcashlc.a products/ios-device/static-libraries/$*
+	cp target/$*/release/libzcashlc.a products/ios-device/static-libraries/$*
 .PHONY: $(IOS_DEVICE_ARCHS)
 
 $(IOS_SIM_ARCHS_STABLE): %: stable-%
 	mkdir -p products/ios-simulator/static-libraries/$*
-	cp target/$*/debug/libzcashlc.a products/ios-simulator/static-libraries/$*
+	cp target/$*/release/libzcashlc.a products/ios-simulator/static-libraries/$*
 .PHONY: $(IOS_SIM_ARCHS_STABLE)
 
 $(IOS_SIM_ARCHS_NIGHTLY): %: nightly-%
 	mkdir -p products/ios-simulator/static-libraries/$*
-	cp target/$*/debug/libzcashlc.a products/ios-simulator/static-libraries/$*
+	cp target/$*/release/libzcashlc.a products/ios-simulator/static-libraries/$*
 .PHONY: $(IOS_SIM_ARCHS_NIGHTLY)
 
 nightly-%:
 	sh -c "RUSTUP_TOOLCHAIN=nightly-2021-09-24 cargo build --manifest-path Cargo.toml --target $* --release"
 
-stable-%: # target/%/debug/libzcashlc.a:
+stable-%: # target/%/release/libzcashlc.a:
 	sh -c "RUSTUP_TOOLCHAIN=stable cargo build --manifest-path Cargo.toml --target $* --release"
