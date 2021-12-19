@@ -24,7 +24,7 @@ jobs:
           ~/.rustup/toolchains
           ~/.rustup/update-hashes
           target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+        key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}-1
 
     - name: build xcframework
       run: make xcframework
