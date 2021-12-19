@@ -15,8 +15,8 @@ jobs:
       run: make xcframework
     - name: Release
       uses: softprops/action-gh-release@v1
-        with:
-          files: products/libzcashlc.xcframework.zip
+      with:
+        files: products/libzcashlc.xcframework.zip
     - name: Cache
     - uses: actions/cache@v2
       with:
