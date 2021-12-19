@@ -34,6 +34,7 @@ clean:
 	rm -rf targets
 
 xcframework: install products/libzcashlc.xcframework
+	zip -r products/libzcashlc.xcframework.zip products/libzcashlc.xcframework
 .PHONY: xcframework
 
 products/libzcashlc.xcframework: $(PLATFORMS)

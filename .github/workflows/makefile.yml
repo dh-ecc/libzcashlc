@@ -13,8 +13,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: build xcframework
       run: make xcframework
-    - name: zip
-      run: zip -r products/libzcashlc.xcframework.zip products/libzcashlc.xcframework
     - name: Release
       uses: softprops/action-gh-release@v1
       # if: startsWith(github.ref, 'refs/tags/')
